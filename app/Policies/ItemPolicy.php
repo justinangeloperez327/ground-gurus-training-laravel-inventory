@@ -2,15 +2,15 @@
 
 namespace App\Policies;
 
-use App\Models\Supplier;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class SupplierPolicy
+class ItemPolicy
 {
     /**
      * Determine whether the user can view any models.
-    */
+     */
     public function viewAny(User $user): bool
     {
         return $user->hasRole('admin') || $user->hasRole('inventory_manager') || $user->hasRole('procurement_officer');
@@ -19,7 +19,7 @@ class SupplierPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Supplier $supplier): bool
+    public function view(User $user, Item $item): bool
     {
         return $user->hasRole('admin') || $user->hasRole('inventory_manager') || $user->hasRole('procurement_officer');
     }
@@ -35,7 +35,7 @@ class SupplierPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Supplier $supplier): bool
+    public function update(User $user, Item $item): bool
     {
         return $user->hasRole('admin') || $user->hasRole('inventory_manager');
     }
@@ -43,7 +43,7 @@ class SupplierPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Supplier $supplier): bool
+    public function delete(User $user, Item $item): bool
     {
         return $user->hasRole('admin');
     }
