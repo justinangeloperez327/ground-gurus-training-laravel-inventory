@@ -19,6 +19,7 @@ class FirstLoginMiddleware
         if (Auth::user()->first_login) {
             return redirect()->route('first-login');
         }
+
         return $next($request);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,7 +57,7 @@ class User extends Authenticatable
     /**
      * Check if the user has a specific role.
      *
-     * @param string $role The role to check.
+     * @param  string  $role  The role to check.
      * @return bool Returns true if the user has the specified role, false otherwise.
      */
     public function hasRole(string $role): bool

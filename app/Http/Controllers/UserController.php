@@ -16,7 +16,7 @@ class UserController extends Controller
         $users = User::all();
 
         return view('users.index', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
@@ -29,7 +29,7 @@ class UserController extends Controller
 
         return view('users.edit', [
             'user' => $user,
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 
@@ -55,6 +55,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
         return redirect()->route('users.index')->with('success', 'User deleted successfully');
     }
 }

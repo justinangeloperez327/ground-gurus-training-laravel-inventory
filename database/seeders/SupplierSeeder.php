@@ -9,6 +9,7 @@ use Illuminate\Database\Seeder;
 class SupplierSeeder extends Seeder
 {
     use WithoutModelEvents;
+
     /**
      * Run the database seeds.
      */
@@ -18,17 +19,17 @@ class SupplierSeeder extends Seeder
             [
                 'name' => 'Intel',
                 'email' => 'intel@gmail.com',
-                'phone' => fake()->phoneNumber()
+                'phone' => fake()->phoneNumber(),
             ],
             [
                 'name' => 'AMD',
                 'email' => 'amd@gmail.com',
-                'phone' => fake()->phoneNumber()
+                'phone' => fake()->phoneNumber(),
             ],
             [
                 'name' => 'NVIDIA',
                 'email' => 'nvidia@gmail.com',
-                'phone' => fake()->phoneNumber()
+                'phone' => fake()->phoneNumber(),
             ],
         ]);
     }

@@ -2,14 +2,15 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Role;
 
 class UserSeeder extends Seeder
 {
     use WithoutModelEvents;
+
     /**
      * Run the database seeds.
      */
@@ -59,7 +60,7 @@ class UserSeeder extends Seeder
                 'password' => $password,
                 'role_id' => Role::where('name', 'Requester')->first()->id,
                 'first_login' => false,
-            ]
+            ],
         ]);
     }
 }

@@ -16,8 +16,6 @@ Route::get('/unauthorized', function () {
     return view('unauthorized')->name('unauthorized');
 });
 
-
-
 Route::get('first-login', [FirstLoginController::class, 'index'])->middleware(['auth'])->name('first-login');
 
 Route::middleware('auth', FirstLoginMiddleware::class)->group(function () {

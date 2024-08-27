@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
-use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
@@ -17,7 +16,7 @@ class ItemController extends Controller
         $items = Item::all();
 
         return view('items.index', [
-            'items' => $items
+            'items' => $items,
         ]);
     }
 
@@ -46,10 +45,10 @@ class ItemController extends Controller
 
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
-            $imagePath = $request->file('image')->storeAs('items', 'item-' . $item->id . '.' . $extension, 'public');
+            $imagePath = $request->file('image')->storeAs('items', 'item-'.$item->id.'.'.$extension, 'public');
 
             $item->update([
-                'image' => $imagePath
+                'image' => $imagePath,
             ]);
         }
 
@@ -62,7 +61,7 @@ class ItemController extends Controller
     public function show(Item $item)
     {
         return view('items.index', [
-            'item' => $item
+            'item' => $item,
         ]);
     }
 
@@ -72,7 +71,7 @@ class ItemController extends Controller
     public function edit(Item $item)
     {
         return view('items.index', [
-            'item' => $item
+            'item' => $item,
         ]);
     }
 
@@ -81,9 +80,9 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
-        if ($request->hasFile('image') ) {
+        if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
-            $imagePath = $request->file('image')->storeAs('items', 'item-' . $item->id. '.' .$extension, 'public');
+            $imagePath = $request->file('image')->storeAs('items', 'item-'.$item->id.'.'.$extension, 'public');
         }
 
         $item->update([

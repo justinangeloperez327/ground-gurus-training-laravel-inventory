@@ -30,7 +30,7 @@ class UpdateItemRequest extends FormRequest
             'supplier_id' => ['required', 'exists:suppliers,id'],
         ];
     }
-    
+
     public function messages(): array
     {
         return [

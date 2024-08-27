@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class SupplierController extends Controller
 {
@@ -18,7 +16,7 @@ class SupplierController extends Controller
         $suppliers = Supplier::all();
 
         return view('suppliers.index', [
-            'suppliers' => $suppliers
+            'suppliers' => $suppliers,
         ]);
     }
 
@@ -46,7 +44,7 @@ class SupplierController extends Controller
     public function show(Supplier $supplier)
     {
         return view('suppliers.show', [
-            'supplier' => $supplier
+            'supplier' => $supplier,
         ]);
     }
 
@@ -56,7 +54,7 @@ class SupplierController extends Controller
     public function edit(Supplier $supplier)
     {
         return view('suppliers.edit', [
-            'supplier' => $supplier
+            'supplier' => $supplier,
         ]);
     }
 
