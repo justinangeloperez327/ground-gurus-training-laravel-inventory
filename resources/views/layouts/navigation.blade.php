@@ -15,12 +15,22 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.index')">
-                        {{ __('Suppliers') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
-                        {{ __('Items') }}
-                    </x-nav-link>
+                    @can('viewAny', App\Models\User::class)
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('viewAny', App\Models\Supplier::class)
+                        <x-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.index')">
+                            {{ __('Suppliers') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('viewAny', App\Models\Item::class)
+                        <x-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
+                            {{ __('Items') }}
+                        </x-nav-link>
+
+                    @endcan
                 </div>
             </div>
 

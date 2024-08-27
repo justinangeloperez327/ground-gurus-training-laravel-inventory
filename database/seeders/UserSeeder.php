@@ -25,35 +25,40 @@ class UserSeeder extends Seeder
 
         User::insert([
             [
-                'first_name' => 'Admin',
-                'last_name' => '',
+                'first_name' => 'Ad',
+                'last_name' => 'min',
                 'email' => 'admin@gmail.com',
                 'password' => $password,
-                'role_id' => Role::where('name', 'admin')->first()->id,
+                'role_id' => Role::where('name', 'Admin')->first()->id,
+                'first_login' => false,
             ], [
-                'first_name' => 'Inventory Manager',
-                'last_name' => '',
+                'first_name' => 'Inventory',
+                'last_name' => 'Manager',
                 'email' => 'inventory@gmail.com',
                 'password' => $password,
-                'role_id' => Role::where('name', 'inventory_manager')->first()->id,
+                'role_id' => Role::where('name', 'Inventory Manager')->first()->id,
+                'first_login' => false,
             ], [
-                'first_name' => 'Procurement Officer',
-                'last_name' => '',
+                'first_name' => 'Procurement',
+                'last_name' => 'Officer',
                 'email' => 'procurement@gmail.com',
                 'password' => $password,
-                'role_id' => Role::where('name', 'procurement_officer')->first()->id,
+                'role_id' => Role::where('name', 'Procurement Officer')->first()->id,
+                'first_login' => false,
             ], [
-                'first_name' => 'Warehouse Staff',
-                'last_name' => '',
+                'first_name' => 'Warehouse',
+                'last_name' => 'Staff',
                 'email' => 'warehouse@gmail.com',
                 'password' => $password,
-                'role_id' => Role::where('name', 'warehouse_staff')->first()->id,
+                'role_id' => Role::where('name', 'Warehouse Staff')->first()->id,
+                'first_login' => false,
             ], [
                 'first_name' => 'Requester',
                 'last_name' => '',
                 'email' => 'requester@gmail.com',
                 'password' => $password,
-                'role_id' => Role::where('name', 'requester')->first()->id,
+                'role_id' => Role::where('name', 'Requester')->first()->id,
+                'first_login' => false,
             ]
         ]);
     }

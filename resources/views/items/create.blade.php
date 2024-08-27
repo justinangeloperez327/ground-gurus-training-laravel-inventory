@@ -11,13 +11,29 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div>
+                        <div x-data="{ imagePreview: '' }">
                             <x-input-label for="image" :value="__('Image')" />
-                            <x-text-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('name')" autofocus />
+                            <x-text-input id="image" class="" type="file" @change="handleFileUpload" name="image" :value="old('name')" autofocus accept="image/*"/>
+                            <img x-show="imagePreview" :src="imagePreview" alt="Image Preview" style="max-width: 300px; margin-top: 20px;">
                             <x-input-error :messages="$errors->get('image')" class="mt-2" />
                         </div>
 
-                        <div>
+                        @section('scripts')
+                            <script>
+                                function handleFileUpload(event) {
+                                    const file = event.target.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => {
+                                            this.imagePreview = e.target.result
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }
+                                }
+                            </script>
+                        @endsection
+
+                        <div class="mt-4">
                             <x-input-label for="name" :value="__('Name')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" autofocus autocomplete="name" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -31,13 +47,13 @@
 
                         <div class="mt-4">
                             <x-input-label for="price" :value="__('Pirce')" />
-                            <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" autofocus autocomplete="price" />
+                            <x-text-input id="price" class="block mt-1 w-full" type="number" step="0.01" min="0.01" name="price" :value="old('price')" autofocus autocomplete="price" />
                             <x-input-error :messages="$errors->get('price')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
                             <x-input-label for="quantity" :value="__('Quantity')" />
-                            <x-text-input id="quantity" class="block mt-1 w-full" type="number" name="quantity" :value="old('quantity')" autofocus autocomplete="quantity" />
+                            <x-text-input id="quantity" class="block mt-1 w-full" type="number" step="1" min="1" name="quantity" :value="old('quantity')" autofocus autocomplete="quantity" />
                             <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                         </div>
 

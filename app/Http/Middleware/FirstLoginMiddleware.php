@@ -17,7 +17,7 @@ class FirstLoginMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user()->first_login) {
-            return redirect(route('first-login'));
+            return redirect()->route('first-login');
         }
         return $next($request);
     }

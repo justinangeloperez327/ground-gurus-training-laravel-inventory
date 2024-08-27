@@ -13,7 +13,7 @@ class SupplierPolicy
     */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('inventory_manager') || $user->hasRole('procurement_officer');
+        return $user->hasRole('Admin') || $user->hasRole('Inventory Manager') || $user->hasRole('Procurement Officer');
     }
 
     /**
@@ -21,7 +21,7 @@ class SupplierPolicy
      */
     public function view(User $user, Supplier $supplier): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('inventory_manager') || $user->hasRole('procurement_officer');
+        return $user->hasRole('Admin') || $user->hasRole('Inventory Manager') || $user->hasRole('Procurement Officer');
     }
 
     /**
@@ -29,7 +29,7 @@ class SupplierPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('inventory_manager');
+        return $user->hasRole('Admin') || $user->hasRole('Inventory Manager');
     }
 
     /**
@@ -37,7 +37,7 @@ class SupplierPolicy
      */
     public function update(User $user, Supplier $supplier): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('inventory_manager');
+        return $user->hasRole('Admin') || $user->hasRole('Inventory Manager');
     }
 
     /**
@@ -45,6 +45,6 @@ class SupplierPolicy
      */
     public function delete(User $user, Supplier $supplier): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasRole('Admin');
     }
 }

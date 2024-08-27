@@ -23,15 +23,15 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($items as $item)
-                                <tr class="px-6 py-4 whitespace-nowrap">
-                                    <td>{{ $item->id }}</td>
-                                    <td>
+                                <tr class="hover:bg-gray-200 hover:-translate-y-1 transition-transform ease-in-out">
+                                    <td class="px-2 py-2">{{ $item->id }}</td>
+                                    <td class="px-2 py-2">
                                         <img src="{{ '/storage/'.$item->image }}" class="h-16 w-16" />
                                     </td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->price }}</td>
-                                    <td>{{ $item->quantity }}</td>
-                                    <td>
+                                    <td class="px-2 py-2">{{ $item->name }}</td>
+                                    <td class="px-2 py-2">{{ $item->price }}</td>
+                                    <td class="px-2 py-2">{{ $item->quantity }}</td>
+                                    <td class="px-2 py-2">
                                         <a href="{{ route('items.show', $item->id) }}" class="bg-blue-300 text-white hover:bg-blue-400 text-sm px-2 py-1 rounded-md">Show</a>
 
                                         <a href="{{ route('items.edit', $item->id) }}" class="bg-green-300 text-white hover:bg-green-400 text-sm px-2 py-1 rounded-md">Edit</a>
@@ -41,7 +41,7 @@
                                             @method('DELETE')
                                             <button type="submit" class="bg-red-300 text-white hover:bg-red-400 text-sm px-2 py-1 rounded-md">Delete</button>
                                         </form>
-  
+
                                     </td>
                                 </tr>
                             @endforeach

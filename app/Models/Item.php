@@ -15,5 +15,11 @@ class Item extends Model
         'price',
         'quantity',
         'image',
+        'supplier_id',
     ];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }

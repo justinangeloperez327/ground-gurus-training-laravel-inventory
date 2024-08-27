@@ -47,7 +47,7 @@ class ItemController extends Controller
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
             $imagePath = $request->file('image')->storeAs('items', 'item-' . $item->id . '.' . $extension, 'public');
-            
+
             $item->update([
                 'image' => $imagePath
             ]);
@@ -85,7 +85,7 @@ class ItemController extends Controller
             $extension = $request->file('image')->extension();
             $imagePath = $request->file('image')->storeAs('items', 'item-' . $item->id. '.' .$extension, 'public');
         }
-    
+
         $item->update([
             'image' => $imagePath,
             'name' => $request->name,

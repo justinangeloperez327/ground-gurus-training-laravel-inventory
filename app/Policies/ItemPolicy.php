@@ -13,7 +13,7 @@ class ItemPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('inventory_manager') || $user->hasRole('procurement_officer');
+        return $user->hasRole('Admin') || $user->hasRole('Inventory_manager') || $user->hasRole('Procurement_officer');
     }
 
     /**
@@ -21,7 +21,7 @@ class ItemPolicy
      */
     public function view(User $user, Item $item): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('inventory_manager') || $user->hasRole('procurement_officer');
+        return $user->hasRole('Admin') || $user->hasRole('Inventory_manager') || $user->hasRole('Procurement_officer');
     }
 
     /**
@@ -29,7 +29,7 @@ class ItemPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('inventory_manager');
+        return $user->hasRole('Admin') || $user->hasRole('Inventory_manager');
     }
 
     /**
@@ -37,7 +37,7 @@ class ItemPolicy
      */
     public function update(User $user, Item $item): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('inventory_manager');
+        return $user->hasRole('Admin') || $user->hasRole('Inventory_manager');
     }
 
     /**
@@ -45,6 +45,6 @@ class ItemPolicy
      */
     public function delete(User $user, Item $item): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasRole('Admin');
     }
 }

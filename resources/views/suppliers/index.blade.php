@@ -24,16 +24,16 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($suppliers as $supplier)
-                                <tr class="px-6 py-4 whitespace-nowrap">
-                                    <td>{{ $supplier->id }}</td>
-                                    <td>{{ $supplier->name }}</td>
-                                    <td>{{ $supplier->email }}</td>
-                                    <td>{{ $supplier->phone }}</td>
-                                    <td>
+                                <tr class="hover:bg-gray-200 hover:-translate-y-1 transition-transform ease-in-out">
+                                    <td class="px-2 py-2">{{ $supplier->id }}</td>
+                                    <td class="px-2 py-2">{{ $supplier->name }}</td>
+                                    <td class="px-2 py-2">{{ $supplier->email }}</td>
+                                    <td class="px-2 py-2">{{ $supplier->phone }}</td>
+                                    <td class="px-2 py-2">
                                         @can('view', $supplier)
                                             <a href="{{ route('suppliers.show', $supplier->id) }}" class="bg-blue-300 text-white hover:bg-blue-400 text-sm px-2 py-1 rounded-md">Show</a>
                                         @endcan
-                                        
+
                                         @can('update', $supplier)
                                             <a href="{{ route('suppliers.edit', $supplier->id) }}" class="bg-green-300 text-white hover:bg-green-400 text-sm px-2 py-1 rounded-md">Edit</a>
                                         @endcan
