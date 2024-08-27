@@ -83,14 +83,6 @@ This is a Laravel-based Inventory Management System that allows users to manage 
 - `StoreItemRequest.php`: Validates the request data for storing an item.
 - `UpdateItemRequest.php`: Validates the request data for updating an item.
 
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Create a new Pull Request.
-
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
