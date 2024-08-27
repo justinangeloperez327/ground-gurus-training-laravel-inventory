@@ -24,17 +24,18 @@ class StoreSupplierRequest extends FormRequest
         return [
             'name' => ['required'],
             'email' => ['required', 'email'],
-            'phone' => ['required']
+            'phone' => ['required', 'regex:/^(\+?63|0)[\d]{10}$/'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'The Supplier Name is Required',
-            'email.required' => 'The Supplier Email is Required',
-            'email.email' => 'The Email must be valid',
-            'phone.required' => 'The Supplier Phone is Required',
+            'name.required' => 'The supplier name is required',
+            'email.required' => 'The supplier email is required',
+            'email.email' => 'The email must be valid',
+            'phone.required' => 'The supplier phone is required',
+            'phone.regex' => 'The phone number must be a valid PH number',
         ];
     }
 }

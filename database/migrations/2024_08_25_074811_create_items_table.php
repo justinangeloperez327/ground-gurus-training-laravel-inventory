@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2)->default(0.00);
             $table->integer('quantity')->default(0);
             $table->string('image')->nullable();
+            $table->foreignId('supplier_id');
             $table->timestamps();
         });
     }

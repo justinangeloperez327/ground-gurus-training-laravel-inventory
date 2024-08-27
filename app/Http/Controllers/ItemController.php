@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -30,12 +32,11 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreItemRequest $request)
     {
-        $request->validate([
-            'image' => ['image', 'mimes:jpeg', 'max:2048']
-        ]);
-
         $item = Item::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -43,14 +44,14 @@ class ItemController extends Controller
             'quantity' => $request->quantity,
         ]);
 
-        if ($request->hasFile('image') ) {
+        if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
-            $imagePath = $request->file('image')->storeAs('items', 'item-' . $item->id. '.' .$extension, 'public');
+            $imagePath = $request->file('image')->storeAs('items', 'item-' . $item->id . '.' . $extension, 'public');
+            
+            $item->update([
+                'image' => $imagePath
+            ]);
         }
-        
-        $item->update([
-            'image' => $imagePath
-        ]);
 
         return redirect(route('items.index'));
     }
@@ -60,7 +61,9 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return view('items.index', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -68,15 +71,30 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        return view('items.index', [
+            'item' => $item
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Item $item)
+    public function update(UpdateItemRequest $request, Item $item)
     {
-        //
+        if ($request->hasFile('image') ) {
+            $extension = $request->file('image')->extension();
+            $imagePath = $request->file('image')->storeAs('items', 'item-' . $item->id. '.' .$extension, 'public');
+        }
+    
+        $item->update([
+            'image' => $imagePath,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+        ]);
+
+        return redirect()->route('items.index');
     }
 
     /**

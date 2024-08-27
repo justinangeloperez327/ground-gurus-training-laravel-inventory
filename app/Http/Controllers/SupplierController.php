@@ -37,7 +37,7 @@ class SupplierController extends Controller
     {
         Supplier::create($request->validated());
 
-        return redirect(route('suppliers.index'));
+        return redirect()->route('suppliers.index');
     }
 
     /**
@@ -68,7 +68,7 @@ class SupplierController extends Controller
 
         $supplier->update($request->all());
 
-        return redirect(route('suppliers.index'));
+        return redirect()->route('suppliers.index');
     }
 
     /**
@@ -78,6 +78,6 @@ class SupplierController extends Controller
     {
         $supplier->delete();
 
-        return redirect(route('suppliers.index'));
+        return redirect()->route('suppliers.index');
     }
 }
