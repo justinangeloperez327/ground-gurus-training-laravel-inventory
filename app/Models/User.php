@@ -23,7 +23,6 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
-        'first_login',
     ];
 
     /**
@@ -46,7 +45,6 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'first_login' => 'boolean'
         ];
     }
 
@@ -55,6 +53,12 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * Check if the user has a specific role.
+     *
+     * @param string $role The role to check.
+     * @return bool Returns true if the user has the specified role, false otherwise.
+     */
     public function hasRole(string $role): bool
     {
         return $this->role && $this->role->name === $role;
