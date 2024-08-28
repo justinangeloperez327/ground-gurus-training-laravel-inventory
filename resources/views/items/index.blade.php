@@ -26,7 +26,7 @@
                                 <tr class="hover:bg-gray-200 hover:-translate-y-1 transition-transform ease-in-out">
                                     <td class="px-2 py-2">{{ $item->id }}</td>
                                     <td class="px-2 py-2">
-                                        <img src="{{ '/storage/'.$item->image }}" class="h-16 w-16" />
+                                        <img src="{{ $item->image_url }}" class="h-16 w-16" />
                                     </td>
                                     <td class="px-2 py-2">{{ $item->name }}</td>
                                     <td class="px-2 py-2">{{ $item->price }}</td>

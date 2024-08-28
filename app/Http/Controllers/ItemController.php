@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
+use App\Models\Supplier;
 
 class ItemController extends Controller
 {
@@ -25,7 +26,11 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('items.create');
+        $suppliers = Supplier::all()->pluck('name', 'id')->toArray();
+
+        return view('items.create', [
+            'suppliers' => $suppliers
+        ]);
     }
 
     /**
@@ -36,12 +41,18 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        $item = Item::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-        ]);
+        // long method
+        // $item = Item::create([
+        //     'name' => $request->name,
+        //     'description' => $request->description,
+        //     'price' => $request->price,
+        //     'quantity' => $request->quantity,
+        //     'supplier_id' => $request->supplier_id,
+        // ]);
+
+        //since we have validation the the params and variable names are the same
+        //we can use the validated method
+        $item = Item::create($request->validated());
 
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
@@ -60,8 +71,11 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return view('items.index', [
+        $suppliers = Supplier::all()->pluck('name', 'id')->toArray();
+
+        return view('items.show', [
             'item' => $item,
+            'suppliers' => $suppliers,
         ]);
     }
 
@@ -70,8 +84,11 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        return view('items.index', [
+        $suppliers = Supplier::all()->pluck('name', 'id')->toArray();
+
+        return view('items.edit', [
             'item' => $item,
+            'suppliers' => $suppliers,
         ]);
     }
 
@@ -80,18 +97,25 @@ class ItemController extends Controller
      */
     public function update(UpdateItemRequest $request, Item $item)
     {
+        $data = $request->validated();
+
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
             $imagePath = $request->file('image')->storeAs('items', 'item-'.$item->id.'.'.$extension, 'public');
+            $data = array_merge($data, ['image' => $imagePath]);
         }
 
-        $item->update([
-            'image' => $imagePath,
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-        ]);
+        //long method
+        // $item->update([
+        //     'image' => $imagePath,
+        //     'name' => $request->name,
+        //     'description' => $request->description,
+        //     'price' => $request->price,
+        //     'quantity' => $request->quantity,
+        // ]);
+
+        //since we have validation the the params and variable names are the same
+        $item->update($data);
 
         return redirect()->route('items.index');
     }

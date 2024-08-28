@@ -13,7 +13,7 @@
                         @csrf
                         <div x-data="{ imagePreview: '' }">
                             <x-input-label for="image" :value="__('Image')" />
-                            <x-text-input id="image" class="" type="file" @change="handleFileUpload" name="image" :value="old('name')" autofocus accept="image/*"/>
+                            <x-text-input id="image" class="" type="file" @change="handleFileUpload" name="image" :value="old('image')" autofocus accept="image/*"/>
                             <img x-show="imagePreview" :src="imagePreview" alt="Image Preview" style="max-width: 300px; margin-top: 20px;">
                             <x-input-error :messages="$errors->get('image')" class="mt-2" />
                         </div>
@@ -56,6 +56,13 @@
                             <x-text-input id="quantity" class="block mt-1 w-full" type="number" step="1" min="1" name="quantity" :value="old('quantity')" autofocus autocomplete="quantity" />
                             <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
                         </div>
+
+                        <div class="mt-4">
+                            <x-input-label for="supplier_id" :value="__('Supplier')" />
+                            <x-select-option id="supplier_id" class="block mt-1 w-full" name="supplier_id" :options="$suppliers" :selected="old('supplier_id')" autofocus />
+                            <x-input-error :messages="$errors->get('supplier_id')" class="mt-2" />
+                        </div>
+
 
                         <div class="flex items-center justify-end mt-4">
                             <button type="submit" class="bg-blue-500 text-white hover:bg-blue-700 text-sm px-2 py-1 rounded-md">
