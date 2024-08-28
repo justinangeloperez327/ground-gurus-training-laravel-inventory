@@ -21,7 +21,7 @@ This is a Laravel-based Inventory Management System that allows users to manage 
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/your-username/laravel-inventory.git
+    git clone https://github.com/justinangeloperez327/laravel-inventory.git
     cd laravel-inventory
     ```
 
