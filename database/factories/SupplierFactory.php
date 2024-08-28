@@ -20,7 +20,6 @@ class SupplierFactory extends Factory
             'name' => fake()->word(),
             'email' => fake()->email(),
             'phone' => fake()->phoneNumber(),
-            'user_id' => 1,
         ];
     }
 }
