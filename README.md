@@ -68,6 +68,8 @@ This is a Laravel-based Inventory Management System that allows users to manage 
 - `ItemController.php`: Handles CRUD operations for items.
 - `SupplierController.php`: Handles CRUD operations for suppliers.
 - `RequisitionController.php`: Handles CRUD operations for requisitions.
+- `OrderController.php`: Handles CRUD operations for orders.
+- `WarehouseController.php`: Handles CRUD operations for warehouses.
 
 ### Models
 
