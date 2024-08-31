@@ -17,7 +17,6 @@
                             <img x-show="imagePreview" :src="imagePreview" alt="Image Preview" style="max-width: 300px; margin-top: 20px;">
                             <x-input-error :messages="$errors->get('image')" class="mt-2" />
                         </div>
-
                         @section('scripts')
                             <script>
                                 function handleFileUpload(event) {
@@ -75,3 +74,4 @@
         </div>
     </div>
 </x-app-layout>
+

@@ -15,6 +15,21 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @can('viewAny', App\Models\Requisition::class)
+                        <x-nav-link :href="route('requisitions.index')" :active="request()->routeIs('requisitions.index')">
+                            {{ __('Requisitions') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('viewAny', App\Models\Order::class)
+                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                            {{ __('Orders') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('viewAny', App\Models\Warehouse::class)
+                        <x-nav-link :href="route('warehouses.index')" :active="request()->routeIs('warehouses.index')">
+                            {{ __('Warehouses') }}
+                        </x-nav-link>
+                    @endcan
                     @can('viewAny', App\Models\User::class)
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                             {{ __('Users') }}
@@ -29,7 +44,6 @@
                         <x-nav-link :href="route('items.index')" :active="request()->routeIs('items.index')">
                             {{ __('Items') }}
                         </x-nav-link>
-
                     @endcan
                 </div>
             </div>

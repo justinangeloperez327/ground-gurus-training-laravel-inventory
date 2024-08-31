@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\FirstLoginController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WarehouseController;
 use App\Http\Middleware\FirstLoginMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +30,14 @@ Route::middleware('auth', FirstLoginMiddleware::class)->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::post('/profile/image', [ProfileController::class, 'uploadImage'])->name('profile.image');
+
     Route::resource('users', UserController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('items', ItemController::class);
+    Route::resource('requisitions', RequisitionController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('warehouses', WarehouseController::class);
 });
 
 require __DIR__.'/auth.php';

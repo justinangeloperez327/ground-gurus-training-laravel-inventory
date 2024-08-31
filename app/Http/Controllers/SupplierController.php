@@ -5,15 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use App\Models\Supplier;
+use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::all();
+        $suppliers = Supplier::query()
+            ->withCount('items', 'requisitions', 'orders')
+            ->where('name', 'like', '%'.$request->search.'%')
+            ->orderBy('orders_count', 'desc')
+            ->paginate(10)
+            ->withQueryString();
 
         return view('suppliers.index', [
             'suppliers' => $suppliers,
@@ -35,7 +41,7 @@ class SupplierController extends Controller
     {
         Supplier::create($request->validated());
 
-        return redirect()->route('suppliers.index');
+        return redirect()->route('suppliers.index')->with('success', 'Supplier created successfully');
     }
 
     /**
@@ -66,7 +72,7 @@ class SupplierController extends Controller
 
         $supplier->update($request->all());
 
-        return redirect()->route('suppliers.index');
+        return redirect()->route('suppliers.index')->with('success', 'Supplier updated successfully');
     }
 
     /**
@@ -76,6 +82,6 @@ class SupplierController extends Controller
     {
         $supplier->delete();
 
-        return redirect()->route('suppliers.index');
+        return redirect()->route('suppliers.index')->with('success', 'Supplier deleted successfully');
     }
 }

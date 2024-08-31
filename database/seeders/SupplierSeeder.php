@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Item;
 use App\Models\Supplier;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -32,5 +33,7 @@ class SupplierSeeder extends Seeder
                 'phone' => fake()->phoneNumber(),
             ],
         ]);
+
+        // Supplier::factory(100)->hasItems(5)->create();
     }
 }

@@ -14,7 +14,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        $items = Item::query()
+            ->has('image')
+            ->with('supplier', 'image')
+            ->get();
 
         return view('items.index', [
             'items' => $items,
@@ -41,29 +44,16 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        // long method
-        // $item = Item::create([
-        //     'name' => $request->name,
-        //     'description' => $request->description,
-        //     'price' => $request->price,
-        //     'quantity' => $request->quantity,
-        //     'supplier_id' => $request->supplier_id,
-        // ]);
-
-        //since we have validation the the params and variable names are the same
-        //we can use the validated method
         $item = Item::create($request->validated());
 
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
             $imagePath = $request->file('image')->storeAs('items', 'item-'.$item->id.'.'.$extension, 'public');
 
-            $item->update([
-                'image' => $imagePath,
-            ]);
+            $item->image()->create(['url' => $imagePath]);
         }
 
-        return redirect(route('items.index'));
+        return redirect()->route('items.index')->with('success', 'Item created successfully');
     }
 
     /**
@@ -99,25 +89,15 @@ class ItemController extends Controller
     {
         $data = $request->validated();
 
+        $item->update($data);
+
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->extension();
             $imagePath = $request->file('image')->storeAs('items', 'item-'.$item->id.'.'.$extension, 'public');
-            $data = array_merge($data, ['image' => $imagePath]);
+            $item->image()->update(['url' => $imagePath]);
         }
 
-        //long method
-        // $item->update([
-        //     'image' => $imagePath,
-        //     'name' => $request->name,
-        //     'description' => $request->description,
-        //     'price' => $request->price,
-        //     'quantity' => $request->quantity,
-        // ]);
-
-        //since we have validation the the params and variable names are the same
-        $item->update($data);
-
-        return redirect()->route('items.index');
+        return redirect()->route('items.index')->with('success', 'Item updated successfully');
     }
 
     /**
@@ -125,6 +105,8 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+
+        return redirect()->route('items.index')->with('success', 'Item deleted successfully');
     }
 }

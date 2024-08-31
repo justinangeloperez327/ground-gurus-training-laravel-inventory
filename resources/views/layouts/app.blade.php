@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -33,5 +34,6 @@
             </main>
         </div>
         @yield('scripts')
+        {{-- <script src="/js/image.js"></script> --}}
     </body>
 </html>

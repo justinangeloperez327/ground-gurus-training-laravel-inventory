@@ -57,4 +57,19 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => ['required', 'image'],
+        ]);
+
+        if ($request->hasFile('image')) {
+            $extension = $request->file('image')->extension();
+            $imagePath = $request->file('image')->storeAs('users', 'user-'.Auth::id().'.'.$extension, 'public');
+            Auth::user()->image()->create(['url' => $imagePath]);
+        }
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
 }

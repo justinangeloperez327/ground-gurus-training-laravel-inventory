@@ -67,21 +67,36 @@ This is a Laravel-based Inventory Management System that allows users to manage 
 
 - `ItemController.php`: Handles CRUD operations for items.
 - `SupplierController.php`: Handles CRUD operations for suppliers.
+- `RequisitionController.php`: Handles CRUD operations for requisitions.
 
 ### Models
 
-- `Item.php`: Represents an item in the inventory.
+- `Item.php`: Represents an item.
 - `Supplier.php`: Represents a supplier.
+- `Order.php`: Represents an order.
+- `Requisition.php`: Represents a requisition.
+- `Warehouse.php`: Represents a warehouse.
 
 ### Policies
 
 - `ItemPolicy.php`: Defines authorization logic for items.
 - `SupplierPolicy.php`: Defines authorization logic for suppliers.
+- `RequisitionPolicy.php`: Defines authorization logic for requisitions.
+- `OrderPolicy.php`: Defines authorization logic for requisitions.
+- `WarehousePolicy.php`: Defines authorization logic for requisitions.
 
 ### Requests
 
 - `StoreItemRequest.php`: Validates the request data for storing an item.
 - `UpdateItemRequest.php`: Validates the request data for updating an item.
+- `StoreSupplierRequest.php`: Validates the request data for storing an supplier.
+- `UpdateSupplierRequest.php`: Validates the request data for updating an supplier.
+- `StoreOrderRequest.php`: Validates the request data for storing an order.
+- `UpdateOrderRequest.php`: Validates the request data for updating an order.
+- `StoreRequisitionRequest.php`: Validates the request data for storing an requisition.
+- `UpdateRequisitionRequest.php`: Validates the request data for updating an requisition.
+- `StoreWarehouseRequest.php`: Validates the request data for storing an warehouse.
+- `UpdateWarehouseRequest.php`: Validates the request data for updating an warehouse.
 
 ## License
 
