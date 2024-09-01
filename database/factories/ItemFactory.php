@@ -21,7 +21,6 @@ class ItemFactory extends Factory
             'description' => fake()->sentence(),
             'price' => fake()->randomFloat(2, 1, 100),
             'quantity' => fake()->numberBetween(1, 100),
-            'image' => fake()->imageUrl(),
             'supplier_id' => \App\Models\Supplier::factory(),
         ];
     }

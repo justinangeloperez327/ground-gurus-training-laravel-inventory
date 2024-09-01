@@ -155,14 +155,16 @@ sudo systemctl restart apache2
 ssh-keygen -t rsa -b 4096 -C "justinangeloperez327@gmail.com"
 
 # - copy the public key and add it to github settings ssh and gpg keys
+# this is the public key
 cat ~/.ssh/id_rsa.pub
 
 
-# - copy the private key and add it to github repository settings secrets
+# - copy the private key and add it to github repository settings secrets actions
+# this is the private key
 cat ~/.ssh/id_rsa
 
 # - if encounter problem
-# - copy the private key and add it to ~/.ssh/authorized_keys
-echo "private-key" >> ~/.ssh/authorized_keys
+# - copy the public key and add it to ~/.ssh/authorized_keys
+echo "public-key" >> ~/.ssh/authorized_keys
 
 # - Add the following to the github action
