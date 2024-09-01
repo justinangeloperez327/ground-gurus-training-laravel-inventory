@@ -1,0 +1,165 @@
+
+# 1. **Create an EC2 Instance**
+# - Go to the [EC2 Dashboard](https://aws.amazon.com/ec2/) in the AWS Management Console.
+# - Click "Launch Instance" to create a new instance.
+# - Choose the **Ubuntu** AMI (Amazon Machine Image) from the list of available images.
+# - When configuring the instance, select "Create a new key pair" under the "Key pair" section.
+# - Download the `.pem` file for the key pair. **Save this file securely**; you will need it to connect to your instance.
+
+# 2. **Connect to the Instance**
+# - Once the instance is running, select it in the EC2 dashboard and click on the "Connect" button to get the SSH connection command.
+# - Use the downloaded `.pem` file to connect to the instance via SSH. Example command:
+#   ssh -i /path/to/your/private-key.pem ubuntu@your-ec2-public-ip
+
+# 3. **Install Dependencies on the Server**
+# - Update Package Lists
+sudo apt-get update
+
+# - Install Git
+sudo apt-get install git
+
+# - Install Node.js and npm (Optional)
+#   If you need Node.js and npm, use the NodeSource repository for the latest versions:
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# - Install PHP and Related Extensions (Optional)
+#   If your application requires PHP, install PHP and common extensions:
+sudo apt-get install -y php php-cli php-xml php-mysql php-mbstring php-curl php-zip unzip p7zip-full
+
+# - Install Composer (PHP Dependency Manager)
+#   Download and install Composer globally:
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
+# - Set Up Firewall Rules (Optional)
+#   Ensure that your security group allows HTTP and HTTPS traffic.
+#   For example, if using UFW (Uncomplicated Firewall), allow HTTP and HTTPS:
+sudo ufw allow 'Apache Full'
+
+# - generate ssh-key in ec2 instance
+ssh-keygen -t rsa -b 4096 -C "justinangeloperez327@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub
+# - copy the public key and add it to github
+
+# - Add directory permission
+sudo chown -R ubuntu:ubuntu /var/www/html
+sudo chmod -R 755 /var/www/html
+
+# - Go to the project directory
+cd /var/www/html
+
+# - Clone Your Repository (If needed)
+#   If you need to clone your application repository:
+git clone git@github.com:justinangeloperez327/laravel-inventory.git
+cd your-repository
+
+# - Install Application Dependencies
+#   If you are using Composer for PHP dependencies:
+composer install
+
+# - Set Up Environment File (If needed)
+#   Copy the example environment file and configure it:
+cp .env.example .env
+
+php artisan key:generate
+#  Change .env variables
+
+# - Create database in RDS
+
+nano .env
+
+# - Change database variables
+# - Use the one in the RDS
+# DB_HOST
+# DB_DATABASE=laravel_inventory
+# DB_USERNAME
+# DB_PASSWORD
+
+# - Setup connection on RDS
+# Add the ec2 instance
+
+php artisan migrate
+# then select Yes in the prompt if no database yet created
+# else run php artisan migrate --force
+php artisan db:seed
+
+# sudo chown -R www-data:www-data /var/www/html/laravel-inventory
+# sudo chown -R www-data:www-data /var/www/html/laravel-inventory/storage
+# sudo chown -R www-data:www-data /var/www/html/laravel-inventory/bootstrap/cache
+
+sudo chown -R ubuntu:ubuntu /var/www/html/laravel-inventory
+
+# - Add directory permission for uploading using storage link
+sudo chown -R www-data:www-data /var/www/html/laravel-inventory/storage
+sudo chmod -R 775 /var/www/html/laravel-inventory/storage
+
+sudo chown -R ubuntu:ubuntu /var/www/html/laravel-inventory/bootstrap/cache
+
+# - Install NPM Dependencies (If needed)
+#   If you are using npm for Node.js dependencies:
+npm install
+npm run build
+
+#- Add directory permission
+sudo chmod -R 775 /var/www/html/laravel-inventory/storage
+php artisan storage:link
+
+# - Add cache
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+
+
+# - Create a Virtual Host File
+sudo nano /etc/apache2/sites-available/laravel-app.conf
+
+# - Add the following configuration (replace placeholders with actual values):
+#
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html/laravel-inventory/public
+    ServerName your-domain.com
+
+    <Directory /var/www/html/laravel-inventory/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+# - Enable the Virtual Host
+sudo a2ensite laravel-app.conf
+
+# - Disable the Default Site (Optional):
+sudo a2dissite 000-default.conf
+
+# - Reload apache to apply changes
+sudo systemctl reload apache2
+
+# - Enable the Apache Rewrite Module
+sudo a2enmod rewrite
+
+# - Restart Apache
+sudo systemctl restart apache2
+
+
+
+# - For autho deploy
+# - generate ssh-key in ec2 instance
+ssh-keygen -t rsa -b 4096 -C "justinangeloperez327@gmail.com"
+
+# - copy the public key and add it to github
+cat ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub
+
+# - Add the key to github
+# - Go to github settings
+# - Click on SSH and GPG keys
+# - Click on New SSH key
+# - Add the key
