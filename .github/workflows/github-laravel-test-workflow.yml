@@ -24,7 +24,7 @@ jobs:
         --health-retries=3
 
   # - This workflow uses the setup-php action to install PHP 8.3.
-    steps:
+  steps:
     - uses: shivammathur/setup-php@v2
       with:
         php-version: '8.3'
