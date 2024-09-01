@@ -62,8 +62,11 @@ jobs:
     - name: Run Migrations
       run: php artisan migrate --force
 
-    - name: Optimize Laravel
-      run: php artisan optimize
-
     - name: Directory Permission
       run: chmod -R 777 storage bootstrap/cache
+
+    - name: Run Test
+      run : ./vendor/bin/pest
+
+    - name: Optimize Laravel
+      run: php artisan optimize
