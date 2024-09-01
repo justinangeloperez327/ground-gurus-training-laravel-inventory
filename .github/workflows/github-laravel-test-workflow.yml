@@ -78,3 +78,7 @@ jobs:
   # - Directory Permission
     - name: Directory Permission
       run: chmod -R 777 storage bootstrap/cache
+
+  # - Run tests
+    - name: Run Tests
+      run: php artisan test
