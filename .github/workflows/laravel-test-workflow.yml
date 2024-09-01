@@ -69,3 +69,15 @@ jobs:
     - name: Directory Permission
       run: chmod -R 777 storage bootstrap/cache
 
+    - name: Set up SSH for AWS
+      run: |
+        mkdir -p ~/.ssh
+        touch ~/.ssh/known_hosts
+        ssh-keycan -H #{{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        chmod 700 ~/.ssh
+        echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        eval $(ssh-agent -s)
+        ssh-add ~/.ssh/id_rsa
+
+    # - name: Deploy to AWS
