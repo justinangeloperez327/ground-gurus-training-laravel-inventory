@@ -1,9 +1,19 @@
-name: Laravel Test Workflow
+name: Laravel Test Workflow with Manual Trigger
 
 # - This workflow is triggered on push events to the main branch.
 on:
-  push:
-    branches: [ "main" ]
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Manual Trigger'
+        # Default value if no value is explicitly provided
+        default: 'Manual Trigger'
+        # Input has to be provided for the workflow to run
+        required: true
+        # The data type of the input
+        type: string
 
 jobs:
   laravel-tests:
