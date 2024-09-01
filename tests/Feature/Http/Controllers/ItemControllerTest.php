@@ -41,6 +41,18 @@ it('creates item', function () {
         ->assertSessionHas('success', 'Item created successfully');
 });
 
+it('fails to create item', function () {
+    $data = [
+        'name' => 'Test Name',
+        'description' => "Test Description",
+        'price' => 12.0,
+        'quantity' => 10,
+    ];
+
+    post('/items', $data)
+        ->assertSessionHasErrors(['supplier_id']);
+});
+
 it('display items edit', function () {
     get("/items/{{ $this->item->id }}/edit")
         ->assertViewIs('items.edit')

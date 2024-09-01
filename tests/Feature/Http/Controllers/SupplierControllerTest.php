@@ -75,7 +75,6 @@ it('updates supplier', function () {
 });
 
 it('deletes supplier', function () {
-
     delete("/suppliers/{{ $this->supplier->id }}")
         ->assertRedirect('/suppliers')
         ->assertSee('suppliers')
