@@ -69,7 +69,7 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
 
     - name: Run Test
-      run : php artisan test
+      run : ./vendor/bin/pest
 
     - name: Set up SSH for AWS
       run: |
