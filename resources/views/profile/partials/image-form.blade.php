@@ -9,9 +9,9 @@
     <form method="post" action="{{ route('profile.image') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
 
-        <div x-data="{ imagePreview: '{{ $user->image->image_url }}' }">
+        <div x-data="{ imagePreview: '{{ $user->image?->image_url }}' }">
             <x-input-label for="image" :value="__('Image')" />
-            <x-text-input id="image" class="" type="file" @change="handleFileUpload" name="image" :value="$user->image->image_url" autofocus accept="image/*"/>
+            <x-text-input id="image" class="" type="file" @change="handleFileUpload" name="image" :value="$user->image?->image_url" autofocus accept="image/*"/>
             <img x-show="imagePreview" :src="imagePreview" alt="Image Preview" style="max-width: 300px; margin-top: 20px;">
             <x-input-error :messages="$errors->get('image')" class="mt-2" />
         </div>
