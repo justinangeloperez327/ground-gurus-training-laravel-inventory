@@ -1,0 +1,43 @@
+name: AWS Auto Deploy Without Test
+
+# - This workflow is triggered on push events to the main branch.
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy-aws-ec2:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up SSH for AWS
+      run: |
+        mkdir -p ~/.ssh
+        touch ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+        chmod 700 ~/.ssh
+        echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        eval $(ssh-agent -s)
+        ssh-add ~/.ssh/id_rsa
+
+    - name: Deploy to AWS
+      env:
+        HOST: ${{ secrets.SSH_HOST }}
+        USER: ${{ secrets.SSH_USER }}
+      run: |
+        ssh -o StrictHostKeyChecking=no $USER@$HOST "
+          sudo chown -R $USER:$USER /var/www/html/laravel-inventory && \
+          sudo chmod -R u+rwX /var/www/html/laravel-inventory && \
+          cd /var/www/html/laravel-inventory && \
+          git pull && \
+          rm -r node_modules && \
+          npm install && \
+          npm run build && \
+          php artisan migrate && \
+          php artisan optimize:clear
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+        "
