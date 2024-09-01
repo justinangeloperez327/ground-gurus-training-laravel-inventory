@@ -154,12 +154,15 @@ sudo systemctl restart apache2
 # - generate ssh-key in ec2 instance
 ssh-keygen -t rsa -b 4096 -C "justinangeloperez327@gmail.com"
 
-# - copy the public key and add it to github
-cat ~/.ssh/id_rsa
+# - copy the public key and add it to github settings ssh and gpg keys
 cat ~/.ssh/id_rsa.pub
 
-# - Add the key to github
-# - Go to github settings
-# - Click on SSH and GPG keys
-# - Click on New SSH key
-# - Add the key
+
+# - copy the private key and add it to github repository settings secrets
+cat ~/.ssh/id_rsa
+
+# - if encounter problem
+# - copy the private key and add it to ~/.ssh/authorized_keys
+echo "private-key" >> ~/.ssh/authorized_keys
+
+# - Add the following to the github action
