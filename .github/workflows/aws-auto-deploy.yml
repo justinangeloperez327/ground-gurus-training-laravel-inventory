@@ -1,9 +1,8 @@
-name: AWS Auto Deploy
+name: AWS Auto Deploy with trigger
 
 # - This workflow is triggered on push events to the main branch.
 on:
-  push:
-    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   deploy-aws-ec2:
