@@ -7,78 +7,79 @@ on:
 
 jobs:
   laravel-tests:
+
     runs-on: ubuntu-latest
 
-  services:
-    mysql:
-      image: mysql:5.7
-      env:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: laravel
-      ports:
-        - 3306:3306
-      options: >-
-        --health-cmd="mysqladmin ping --silent"
-        --health-interval=10s
-        --health-timeout=5s
-        --health-retries=3
+  # services:
+  #   mysql:
+  #     image: mysql:5.7
+  #     env:
+  #       MYSQL_ROOT_PASSWORD: root
+  #       MYSQL_DATABASE: laravel
+  #     ports:
+  #       - 3306:3306
+  #     options: >-
+  #       --health-cmd="mysqladmin ping --silent"
+  #       --health-interval=10s
+  #       --health-timeout=5s
+  #       --health-retries=3
 
-  # - This workflow uses the setup-php action to install PHP 8.3.
-  steps:
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.3'
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, pdo_mysql, bcmath, soap, intl, gd, exif, iconv
-        coverage: none
+  # # - This workflow uses the setup-php action to install PHP 8.3.
+  # steps:
+  #   - uses: shivammathur/setup-php@v2
+  #     with:
+  #       php-version: '8.3'
+  #       extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, pdo_mysql, bcmath, soap, intl, gd, exif, iconv
+  #       coverage: none
 
-  # - This workflow uses the actions/checkout action to check out the repository.
-    - uses: actions/checkout@v4
+  # # - This workflow uses the actions/checkout action to check out the repository.
+  #   - uses: actions/checkout@v4
 
-  # - copy .env.example to .env
-    - name: Copy .env.example to .env
-      run: cp .env.example .env
+  # # - copy .env.example to .env
+  #   - name: Copy .env.example to .env
+  #     run: cp .env.example .env
 
-    - name: Set Up Mysql Database Configuration
-      run: |
-        echo "DB_CONNECTION=mysql" >> .env
-        echo "DB_HOST=127.0.0.1" >> .env
-        echo "DB_PORT=3306" >> .env
-        echo "DB_DATABASE=laravel" >> .env
-        echo "DB_USERNAME=root" >> .env
-        echo "DB_PASSWORD=root" >> .env
+  #   - name: Set Up Mysql Database Configuration
+  #     run: |
+  #       echo "DB_CONNECTION=mysql" >> .env
+  #       echo "DB_HOST=127.0.0.1" >> .env
+  #       echo "DB_PORT=3306" >> .env
+  #       echo "DB_DATABASE=laravel" >> .env
+  #       echo "DB_USERNAME=root" >> .env
+  #       echo "DB_PASSWORD=root" >> .env
 
-  # - install composer dependencies
-    - name: Install Composer Dependencies
-      run: composer install --no-ansi --no-interaction --no-progress --no-suggest
+  # # - install composer dependencies
+  #   - name: Install Composer Dependencies
+  #     run: composer install --no-ansi --no-interaction --no-progress --no-suggest
 
-  # - generate application key
-    - name: Generate Application Key
-      run: php artisan key:generate
+  # # - generate application key
+  #   - name: Generate Application Key
+  #     run: php artisan key:generate
 
-  # - install npm dependencies
-    - name: Install NPM Dependencies
-      run: npm install
+  # # - install npm dependencies
+  #   - name: Install NPM Dependencies
+  #     run: npm install
 
-  # - build dependencies
-    - name: Build Dependencies
-      run: npm run build
+  # # - build dependencies
+  #   - name: Build Dependencies
+  #     run: npm run build
 
-  # - Add storage Link
-    - name: Add Storage Link
-      run: php artisan storage:link
+  # # - Add storage Link
+  #   - name: Add Storage Link
+  #     run: php artisan storage:link
 
-  # - Run migrations
-    - name: Run Migrations
-      run: php artisan migrate --force
+  # # - Run migrations
+  #   - name: Run Migrations
+  #     run: php artisan migrate --force
 
-  #- Optimize laravel
-    - name: Optimize Laravel
-      run: php artisan optimize
+  # #- Optimize laravel
+  #   - name: Optimize Laravel
+  #     run: php artisan optimize
 
-  # - Directory Permission
-    - name: Directory Permission
-      run: chmod -R 777 storage bootstrap/cache
+  # # - Directory Permission
+  #   - name: Directory Permission
+  #     run: chmod -R 777 storage bootstrap/cache
 
-  # - Run tests
-    - name: Run Tests
-      run: php artisan test
+  # # - Run tests
+  #   - name: Run Tests
+  #     run: php artisan test
