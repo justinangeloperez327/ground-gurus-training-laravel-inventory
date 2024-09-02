@@ -90,12 +90,14 @@ php artisan db:seed
 # sudo chown -R www-data:www-data /var/www/html/laravel-inventory/storage
 # sudo chown -R www-data:www-data /var/www/html/laravel-inventory/bootstrap/cache
 
+#change ubuntu to the username you use in the ec2 instance
 sudo chown -R ubuntu:ubuntu /var/www/html/laravel-inventory
 
 # - Add directory permission for uploading using storage link
 sudo chown -R www-data:www-data /var/www/html/laravel-inventory/storage
 sudo chmod -R 775 /var/www/html/laravel-inventory/storage
 
+#change ubuntu to the username you use in the ec2 instance
 sudo chown -R ubuntu:ubuntu /var/www/html/laravel-inventory/bootstrap/cache
 
 # - Install NPM Dependencies (If needed)
